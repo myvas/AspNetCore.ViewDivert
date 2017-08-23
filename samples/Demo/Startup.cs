@@ -5,12 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Text;
 using System;
-using AspNetCore.WeixinOAuth;
 
 namespace Myvas.AspNetCore.Authentication.WeixinOAuth.Sample
 {
@@ -38,7 +36,7 @@ namespace Myvas.AspNetCore.Authentication.WeixinOAuth.Sample
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(options => options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
+            services.AddAuthentication(options => options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,13 +48,7 @@ namespace Myvas.AspNetCore.Authentication.WeixinOAuth.Sample
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AutomaticAuthenticate = true,
-                AutomaticChallenge = true,
-                LoginPath = new PathString("/login")
-            });
+            
 
             var appId = Configuration["weixin:appid"];
             var appSecret = Configuration["weixin:appsecret"];
@@ -64,14 +56,6 @@ namespace Myvas.AspNetCore.Authentication.WeixinOAuth.Sample
             try { useAdvancedScope = Convert.ToBoolean(Configuration["weixin:useadvancedscope"]); } catch { }
             bool useQrcode = false;
             try { useQrcode = Convert.ToBoolean(Configuration["weixin:useqrcode"]); } catch { }
-            app.UseWeixinOAuth(options =>
-            {
-                options.AppId = appId;
-                options.AppSecret = appSecret;
-                options.Scope.Add(WeixinOAuthScopes.snsapi_userinfo);
-                options.SaveTokens = true;
-                //AuthorizationEndpoint = WeixinOAuthDefaults.AuthorizationEndpointQrcode,
-            });
 
             // Choose an authentication type
             app.Map("/login", signoutApp =>
@@ -83,7 +67,7 @@ namespace Myvas.AspNetCore.Authentication.WeixinOAuth.Sample
                     {
                         // By default the client will be redirect back to the URL that issued the challenge (/login?authtype=foo),
                         // send them to the home page instead (/).
-                        await context.Authentication.ChallengeAsync(authType, new AuthenticationProperties() { RedirectUri = "/" });
+                        await context.ChallengeAsync(authType, new AuthenticationProperties() { RedirectUri = "/" });
                         return;
                     }
 
@@ -160,10 +144,10 @@ namespace Myvas.AspNetCore.Authentication.WeixinOAuth.Sample
 
                      await context.Response.WriteAsync("Tokens:<br>");
 
-                     await context.Response.WriteAsync("Access Token: " + await context.Authentication.GetTokenAsync("access_token") + "<br>");
-                     await context.Response.WriteAsync("Refresh Token: " + await context.Authentication.GetTokenAsync("refresh_token") + "<br>");
-                     await context.Response.WriteAsync("Token Type: " + await context.Authentication.GetTokenAsync("token_type") + "<br>");
-                     await context.Response.WriteAsync("expires_at: " + await context.Authentication.GetTokenAsync("expires_at") + "<br>");
+                     await context.Response.WriteAsync("Access Token: " + await context.GetTokenAsync("access_token") + "<br>");
+                     await context.Response.WriteAsync("Refresh Token: " + await context.GetTokenAsync("refresh_token") + "<br>");
+                     await context.Response.WriteAsync("Token Type: " + await context.GetTokenAsync("token_type") + "<br>");
+                     await context.Response.WriteAsync("expires_at: " + await context.GetTokenAsync("expires_at") + "<br>");
                      await context.Response.WriteAsync("<a href=\"/api/anonymousvisitor\">Anonymous Visitor</a><br>");
                      await context.Response.WriteAsync("<a href=\"/api/authorizedvisitor\">Authorized Visitor</a><br>");
                      await context.Response.WriteAsync("<a href=\"/logout\">Logout</a><br>");
