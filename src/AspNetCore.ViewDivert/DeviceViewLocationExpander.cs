@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using System.Reflection;
+using System.IO;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting;
 
 namespace AspNetCore.ViewDivertMiddleware
 {
@@ -11,30 +14,23 @@ namespace AspNetCore.ViewDivertMiddleware
     {
         private readonly IDeviceResolver _deviceResolver;
         private readonly ViewDivertOptions _options;
+        private readonly IHostingEnvironment _env;
 
         /// <summary>
         /// Instantiates a new <see cref="DefaultTagHelperActivator" /> instance.
         /// </summary>
         /// <param name="optionsAccessor">The <see cref="ViewDivertOptions" />.</param>
         /// <param name="deviceResolver">The device resolver.</param>
-        public DeviceViewLocationExpander(IOptions<ViewDivertOptions> optionsAccessor, IDeviceResolver deviceResolver)
+        public DeviceViewLocationExpander(IOptions<ViewDivertOptions> optionsAccessor, IDeviceResolver deviceResolver,IHostingEnvironment env)
         {
-            if (optionsAccessor == null)
-            {
-                throw new ArgumentNullException(nameof(optionsAccessor));
-            }
-            if (deviceResolver == null)
-            {
-                throw new ArgumentNullException(nameof(deviceResolver));
-            }
-
-            _options = optionsAccessor.Value;
+            _deviceResolver = deviceResolver ?? throw new ArgumentNullException(nameof(deviceResolver));
+            _options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
+            _env = env ?? throw new ArgumentNullException(nameof(env));
             if (_options.Indicator == null)
             {
                 _options.Indicator = ViewDivertDefaults.Indicator;
             }
 
-            _deviceResolver = deviceResolver;
         }
 
         /// <inheritdoc />
@@ -72,7 +68,7 @@ namespace AspNetCore.ViewDivertMiddleware
                 {
                     if (!string.IsNullOrEmpty(value))
                     {
-                        return ChangeLocations(viewLocations, value);
+                        return TryInsertLocations(viewLocations, value);
                     }
                 }
             }
@@ -103,22 +99,23 @@ namespace AspNetCore.ViewDivertMiddleware
         /// <param name="viewLocations"></param>
         /// <param name="code">View区别码</param>
         /// <returns></returns>
-        private IEnumerable<string> ChangeLocations(IEnumerable<string> viewLocations, string code)
+        private IEnumerable<string> TryInsertLocations(IEnumerable<string> viewLocations, string code)
         {
             foreach (var location in viewLocations)
             {
                 if (_options.Format == ViewDivertLocationExpanderFormat.SubFolder)
                 {
-                    yield return location.Replace("{0}", code + "/{0}");
+                    var newLocation = location.Replace("{0}", code + "/{0}");
+                    yield return newLocation;
                 }
                 else
                 {
-                    yield return location.Replace("{0}", "{0}." + code);
+                    var newLocation = location.Replace("{0}", "{0}." + code);
+                    yield return newLocation;
                 }
-
 
                 yield return location;
             }
-        }
+        }        
     }
 }
