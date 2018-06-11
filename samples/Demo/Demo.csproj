@@ -1,17 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <AssemblyName>Myvas.AspNetCore.Authentication.WeixinOAuth.Sample</AssemblyName>
+    <AssemblyName>Demo</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>Myvas.AspNetCore.Authentication.WeixinOAuth.Sample</PackageId>
-    <UserSecretsId>aspnetcore-weixinoauthsample-201608292231</UserSecretsId>
+    <UserSecretsId>aspnetcore-viewdivert</UserSecretsId>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wpa81+wp8</AssetTargetFallback>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
   </ItemGroup>
 
 </Project>

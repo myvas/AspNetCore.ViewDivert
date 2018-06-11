@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{E9754587-13F5-4E
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		global.json = global.json
 		NuGet.Config = NuGet.Config
 		README.md = README.md
 	EndProjectSection
@@ -49,5 +50,8 @@ Global
 		{74A3C863-09CC-4700-A688-1DF8B26C951B} = {73FCFCF4-3A1C-4D4D-939A-9CABDC2341DC}
 		{7599B590-238D-4DDB-9C11-2F0B0AF24F97} = {6E6B9D58-9128-47E7-956E-8DB335D2247E}
 		{75C6D28D-BC5E-4B60-AD07-C7566EAF565C} = {672FEA18-F072-4549-9C4C-DBD1F9CDC7BB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {11F10665-D73D-4FD2-AC2A-756FEB3AE0C8}
 	EndGlobalSection
 EndGlobal
