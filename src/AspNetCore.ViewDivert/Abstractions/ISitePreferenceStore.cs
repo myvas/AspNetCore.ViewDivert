@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace AspNetCore.ViewDivertMiddleware
+namespace AspNetCore.ViewDivert
 {
 
     public interface ISitePreferenceStore

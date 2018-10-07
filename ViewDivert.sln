@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{6E6B9D58-9128-47E7-956E-8DB335D2247E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "samples\Demo\Demo.csproj", "{7599B590-238D-4DDB-9C11-2F0B0AF24F97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.ViewDivert.Demo", "samples\Demo\AspNetCore.ViewDivert.Demo.csproj", "{7599B590-238D-4DDB-9C11-2F0B0AF24F97}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.ViewDivert", "src\AspNetCore.ViewDivert\AspNetCore.ViewDivert.csproj", "{75C6D28D-BC5E-4B60-AD07-C7566EAF565C}"
 EndProject

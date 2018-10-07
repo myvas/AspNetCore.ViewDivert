@@ -8,7 +8,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting;
 
-namespace AspNetCore.ViewDivertMiddleware
+namespace AspNetCore.ViewDivert
 {
     public class DeviceViewLocationExpander : IViewLocationExpander
     {

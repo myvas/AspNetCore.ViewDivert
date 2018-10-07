@@ -6,8 +6,10 @@
     <PackageId>AspNetCore.ViewDivert</PackageId>
     <VersionPrefix>2.0.1</VersionPrefix>
     <Authors>AspNetCore</Authors>
-    <Description>An Razor ViewLocationExpander service to support multiple views on different devices.</Description>
+    <Description>A Razor ViewLocationExpander to serve different browsers with different views.</Description>
     <PackageProjectUrl>https://github.com/myvas/AspNetCore.ViewDivert</PackageProjectUrl>
+    <Version>2.1.403</Version>
+    <PackageTags>AspNetCore, ViewDivert</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +19,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

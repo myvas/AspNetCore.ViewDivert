@@ -1,4 +1,4 @@
-﻿namespace AspNetCore.ViewDivertMiddleware
+﻿namespace AspNetCore.ViewDivert
 {
     public class SwitcherOptions
     {

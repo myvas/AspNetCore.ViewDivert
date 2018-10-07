@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AspNetCore.ViewDivertMiddleware
+namespace AspNetCore.ViewDivert
 {
     public class LiteDevice : IDevice
     {

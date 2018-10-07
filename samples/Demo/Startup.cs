@@ -10,149 +10,46 @@ using Microsoft.AspNetCore.Authentication;
 using System.Text;
 using System;
 
-namespace Myvas.AspNetCore.Authentication.WeixinOAuth.Sample
+namespace Demo
 {
     public class Startup
     {
         public IConfiguration Configuration { get; set; }
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json");
-
-            if (env.IsDevelopment())
-            {
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets<Startup>();
-            }
-
-            builder.AddEnvironmentVariables();
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(options => options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
+            services.AddMvc();
+
+            services.AddViewDivert();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            loggerFactory.AddConsole(LogLevel.Information);
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            
-
-            var appId = Configuration["weixin:appid"];
-            var appSecret = Configuration["weixin:appsecret"];
-            bool useAdvancedScope = false;
-            try { useAdvancedScope = Convert.ToBoolean(Configuration["weixin:useadvancedscope"]); } catch { }
-            bool useQrcode = false;
-            try { useQrcode = Convert.ToBoolean(Configuration["weixin:useqrcode"]); } catch { }
-
-            // Choose an authentication type
-            app.Map("/login", signoutApp =>
+            else
             {
-                signoutApp.Run(async context =>
-                {
-                    var authType = context.Request.Query["authscheme"];
-                    if (!string.IsNullOrEmpty(authType))
-                    {
-                        // By default the client will be redirect back to the URL that issued the challenge (/login?authtype=foo),
-                        // send them to the home page instead (/).
-                        await context.ChallengeAsync(authType, new AuthenticationProperties() { RedirectUri = "/" });
-                        return;
-                    }
+                app.UseExceptionHandler("/Home/Error");
+            }
 
-                    context.Response.ContentType = $"text/html; charset={Encoding.UTF8.WebName}";
-                    await context.Response.WriteAsync("<html><body>");
-                    await context.Response.WriteAsync("Choose an authentication scheme: <br>");
-                    foreach (var type in context.Authentication.GetAuthenticationSchemes())
-                    {
-                        await context.Response.WriteAsync("<a href=\"?authscheme=" + type.AuthenticationScheme + "\">" + (type.DisplayName ?? "(suppressed)") + "</a><br>");
-                    }
-                    await context.Response.WriteAsync("</body></html>");
-                });
-            });
+            app.UseStaticFiles();
 
-            // Sign-out to remove the user cookie.
-            app.Map("/logout", signoutApp =>
+            app.UseMvc(routes =>
             {
-                signoutApp.Run(async context =>
-                {
-                    context.Response.ContentType = $"text/html; charset={Encoding.UTF8.WebName}";
-                    await context.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                    await context.Response.WriteAsync("<html><body>");
-                    await context.Response.WriteAsync("You have been logged out. Goodbye " + context.User.Identity.Name + "<br>");
-                    await context.Response.WriteAsync("<a href=\"/\">Home</a>");
-                    await context.Response.WriteAsync("</body></html>");
-                });
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            // Display the remote error
-            app.Map("/error", errorApp =>
-            {
-                errorApp.Run(async context =>
-                {
-                    context.Response.ContentType = $"text/html; charset={Encoding.UTF8.WebName}";
-                    await context.Response.WriteAsync("<html><body>");
-                    await context.Response.WriteAsync("An remote failure has occurred: " + context.Request.Query["FailureMessage"] + "<br>");
-                    await context.Response.WriteAsync("<a href=\"/\">Home</a>");
-                    await context.Response.WriteAsync("</body></html>");
-                });
-            });
-
-            app.Run(async context =>
-                 {
-                     // CookieAuthenticationOptions.AutomaticAuthenticate = true (default) causes User to be set
-                     var user = context.User;
-
-                     // This is what [Authorize] calls
-                     // var user = await context.Authentication.AuthenticateAsync(AuthenticationManager.AutomaticScheme);
-
-                     // This is what [Authorize(ActiveAuthenticationSchemes = MicrosoftAccountDefaults.AuthenticationScheme)] calls
-                     // var user = await context.Authentication.AuthenticateAsync(MicrosoftAccountDefaults.AuthenticationScheme);
-
-                     // Deny anonymous request beyond this point.
-                     if (user == null || !user.Identities.Any(identity => identity.IsAuthenticated))
-                     {
-                         // This is what [Authorize] calls
-                         // The cookie middleware will intercept this 401 and redirect to /login
-                         await context.Authentication.ChallengeAsync();
-
-                         // This is what [Authorize(ActiveAuthenticationSchemes = MicrosoftAccountDefaults.AuthenticationScheme)] calls
-                         // await context.Authentication.ChallengeAsync(MicrosoftAccountDefaults.AuthenticationScheme);
-
-                         return;
-                     }
-
-                     // Display user information
-                     context.Response.ContentType = $"text/html; charset={Encoding.UTF8.WebName}";
-                     await context.Response.WriteAsync("<html><body>");
-                     await context.Response.WriteAsync("Hello " + (context.User.Identity.Name ?? "anonymous") + "<br>");
-                     foreach (var claim in context.User.Claims)
-                     {
-                         await context.Response.WriteAsync(claim.Type + ": " + claim.Value + "<br>");
-                     }
-
-                     await context.Response.WriteAsync("Tokens:<br>");
-
-                     await context.Response.WriteAsync("Access Token: " + await context.GetTokenAsync("access_token") + "<br>");
-                     await context.Response.WriteAsync("Refresh Token: " + await context.GetTokenAsync("refresh_token") + "<br>");
-                     await context.Response.WriteAsync("Token Type: " + await context.GetTokenAsync("token_type") + "<br>");
-                     await context.Response.WriteAsync("expires_at: " + await context.GetTokenAsync("expires_at") + "<br>");
-                     await context.Response.WriteAsync("<a href=\"/api/anonymousvisitor\">Anonymous Visitor</a><br>");
-                     await context.Response.WriteAsync("<a href=\"/api/authorizedvisitor\">Authorized Visitor</a><br>");
-                     await context.Response.WriteAsync("<a href=\"/logout\">Logout</a><br>");
-                     await context.Response.WriteAsync("</body></html>");
-                 });
         }
     }
 }

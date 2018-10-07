@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
-namespace AspNetCore.ViewDivertMiddleware
+namespace AspNetCore.ViewDivert
 {
     public class PreferenceSwitcher
     {
