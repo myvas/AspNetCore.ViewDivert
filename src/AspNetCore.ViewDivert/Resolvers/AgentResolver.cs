@@ -15,7 +15,7 @@ namespace AspNetCore.ViewDivert
         {
             _options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
         }
-        
+
         /// <summary>
         /// 判断设备类别
         /// </summary>
@@ -23,94 +23,92 @@ namespace AspNetCore.ViewDivert
         /// <returns>未知设备类别则返回<see cref="string.Empty"/> 。</returns>
         public string Resolve(HttpContext context)
         {
-            if(AgentResolverHelper.IsMicroMessenger(context))
+            if (IsMicroMessenger(context))
                 return _options.WeixinCode;
 
-            if(AgentResolverHelper.IsTablet(context))
-                return  _options.TabletCode;
-            
-            if(AgentResolverHelper.IsMobile(context))
+            if (IsTablet(context))
+                return _options.TabletCode;
+
+            if (IsMobile(context))
                 return _options.MobileCode;
 
             return "";
         }
 
-        internal static class AgentResolverHelper
+        public static bool IsMicroMessenger(HttpContext context)
         {
-            public static bool IsMicroMessenger(HttpContext context)
+            try
             {
-                try
+                var agent = context.Request.Headers["User-Agent"].FirstOrDefault()?.ToLowerInvariant();
+                // UserAgent keyword detection of MicroMessenger
+                if (agent != null && KnownMicroMessengerUserAgentKeywords.Any(keyword => agent.Contains(keyword)))
                 {
-                    var agent = context.Request.Headers["User-Agent"].FirstOrDefault()?.ToLowerInvariant();
-                    // UserAgent keyword detection of MicroMessenger
-                    if (agent != null && KnownMicroMessengerUserAgentKeywords.Any(keyword => agent.Contains(keyword)))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-                catch { }
-                return false;
             }
+            catch { }
+            return false;
+        }
 
-            public static bool IsTablet(HttpContext context)
+        public static bool IsTablet(HttpContext context)
+        {
+            try
             {
-                try
+                var agent = context.Request.Headers["User-Agent"].FirstOrDefault()?.ToLowerInvariant();
+                // UserAgent keyword detection of:
+                // (1) Tablet && !mobile
+                // (2) ipad
+                if (agent != null && KnownTabletUserAgentKeywords.Any(keyword => agent.Contains(keyword) && !agent.Contains("mobile")
+                    || (agent != null && agent.Contains("ipad"))))
                 {
-                    var agent = context.Request.Headers["User-Agent"].FirstOrDefault()?.ToLowerInvariant();
-                    // UserAgent keyword detection of:
-                    // (1) Tablet && !mobile
-                    // (2) ipad
-                    if (agent != null && KnownTabletUserAgentKeywords.Any(keyword => agent.Contains(keyword) && !agent.Contains("mobile")
-                        || (agent != null && agent.Contains("ipad"))))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-                catch { }
-                return false;
             }
+            catch { }
+            return false;
+        }
 
-            public static bool IsMobile(HttpContext context)
+        public static bool IsMobile(HttpContext context)
+        {
+            try
             {
-                try
+                var agent = context.Request.Headers["User-Agent"].FirstOrDefault()?.ToLowerInvariant();
+                // UserAgent keyword detection of:
+                // (1) x-wap-profile
+                // (2) profile
+                if (agent != null && context.Request.Headers.ContainsKey("x-wap-profile") ||
+                    context.Request.Headers.ContainsKey("Profile"))
                 {
-                    var agent = context.Request.Headers["User-Agent"].FirstOrDefault()?.ToLowerInvariant();
-                    // UserAgent keyword detection of:
-                    // (1) x-wap-profile
-                    // (2) profile
-                    if (agent != null && context.Request.Headers.ContainsKey("x-wap-profile") ||
-                        context.Request.Headers.ContainsKey("Profile"))
-                    {
-                        return true;
-                    }
-
-                    if (agent != null && agent.Length >= 4 && KnownMobileUserAgentPrefixes.Any(prefix => agent.StartsWith(prefix)))
-                    {
-                        return true;
-                    }
-
-                    var accept = context.Request.Headers["Accept"];
-                    if (accept.Any(t => t.ToLowerInvariant() == "wap"))
-                    {
-                        return true;
-                    }
-
-                    if (agent != null && KnownMobileUserAgentKeywords.Any(keyword => agent.Contains(keyword)))
-                    {
-                        return true;
-                    }
-
-                    if (context.Request.Headers.Any(header => header.Value.Any(value => value.Contains("OperaMini"))))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-                catch { }
-                return false;
-            }
 
-            public static readonly string[] KnownMobileUserAgentPrefixes =
-            {
+                if (agent != null && agent.Length >= 4 && KnownMobileUserAgentPrefixes.Any(prefix => agent.StartsWith(prefix)))
+                {
+                    return true;
+                }
+
+                var accept = context.Request.Headers["Accept"];
+                if (accept.Any(t => t.ToLowerInvariant() == "wap"))
+                {
+                    return true;
+                }
+
+                if (agent != null && KnownMobileUserAgentKeywords.Any(keyword => agent.Contains(keyword)))
+                {
+                    return true;
+                }
+
+                if (context.Request.Headers.Any(header => header.Value.Any(value => value.Contains("OperaMini"))))
+                {
+                    return true;
+                }
+            }
+            catch { }
+            return false;
+        }
+
+        public static readonly string[] KnownMobileUserAgentPrefixes =
+        {
             "w3c ", "w3c-", "acs-", "alav", "alca", "amoi", "audi", "avan", "benq",
             "bird", "blac", "blaz", "brew", "cell", "cldc", "cmd-", "dang", "doco",
             "eric", "hipt", "htc_", "inno", "ipaq", "ipod", "jigs", "kddi", "keji",
@@ -122,18 +120,16 @@ namespace AspNetCore.ViewDivert
             "tosh", "tsm-", "upg1", "upsi", "vk-v", "voda", "wap-", "wapa", "wapi",
             "wapp", "wapr", "webc", "winw", "winw", "xda ", "xda-"
         };
-            public static readonly string[] KnownMobileUserAgentKeywords =
-            {
+        public static readonly string[] KnownMobileUserAgentKeywords =
+        {
             "blackberry", "webos", "ipod", "lge vx", "midp", "maemo", "mmp", "mobile",
             "netfront", "hiptop", "nintendo DS", "novarra", "openweb", "opera mobi",
             "opera mini", "palm", "psp", "phone", "smartphone", "symbian", "up.browser",
             "up.link", "wap", "windows ce"
         };
 
-            public static readonly string[] KnownTabletUserAgentKeywords = { "ipad", "playbook", "hp-tablet", "kindle" };
+        public static readonly string[] KnownTabletUserAgentKeywords = { "ipad", "playbook", "hp-tablet", "kindle" };
 
-            public static readonly string[] KnownMicroMessengerUserAgentKeywords = { "micromessenger" };
-        }
+        public static readonly string[] KnownMicroMessengerUserAgentKeywords = { "micromessenger" };
     }
-
 }
