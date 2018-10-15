@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
+using Myvas.AspNetCore.ViewDivert;
 
-namespace AspNetCore.ViewDivert
+namespace Microsoft.AspNetCore.Mvc
 {
     public class AgentResolver : IDeviceResolver
     {

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AspNetCore.ViewDivert\AspNetCore.ViewDivert.csproj" />
+    <ProjectReference Include="..\..\src\AspNetCore.ViewDivert\ViewDivert.csproj" />
   </ItemGroup>
 
   <ItemGroup>

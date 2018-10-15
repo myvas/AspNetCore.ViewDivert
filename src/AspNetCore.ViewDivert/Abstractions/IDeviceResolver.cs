@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace AspNetCore.ViewDivert
+namespace Myvas.AspNetCore.ViewDivert
 {
 
     public interface IDeviceResolver

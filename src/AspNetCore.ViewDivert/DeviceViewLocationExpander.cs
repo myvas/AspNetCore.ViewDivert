@@ -7,8 +7,9 @@ using System.Reflection;
 using System.IO;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 
-namespace AspNetCore.ViewDivert
+namespace Myvas.AspNetCore.ViewDivert
 {
     public class DeviceViewLocationExpander : IViewLocationExpander
     {

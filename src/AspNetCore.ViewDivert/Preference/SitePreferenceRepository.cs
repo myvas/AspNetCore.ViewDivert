@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AspNetCore.ViewDivert
+namespace Myvas.AspNetCore.ViewDivert
 {
     public class SitePreferenceRepository : ISitePreferenceStore
     {

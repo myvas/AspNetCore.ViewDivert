@@ -1,4 +1,4 @@
-﻿namespace AspNetCore.ViewDivert
+﻿namespace Myvas.AspNetCore.ViewDivert
 {
     public class SwitcherOptions
     {

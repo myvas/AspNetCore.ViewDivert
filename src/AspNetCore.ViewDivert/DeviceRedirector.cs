@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Options;
 
-namespace AspNetCore.ViewDivert
+namespace Myvas.AspNetCore.ViewDivert
 {
     public class DeviceRedirector : IDeviceRedirector
     {
