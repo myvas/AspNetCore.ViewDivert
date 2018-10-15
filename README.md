@@ -1,15 +1,15 @@
-# AspNetCore.ViewDivert
+# ViewDivert
 
 ## How to Use
 ### Nuget
-https://www.nuget.org/packages/AspNetCore.ViewDivert
+[Myvas.AspNetCore.ViewDivert](https://www.nuget.org/packages/Myvas.AspNetCore.ViewDivert)
 
-### Startup/ConfigureServices()
+### ConfigureServices()
 ```csharp
 services.AddViewDivert();
 ```
 
-### XxxController
+### Use ViewDivert attribute
 ```csharp
 public class XxxController : Controller
 {
@@ -54,4 +54,4 @@ public class XxxController : Controller
 ```
 
 ### IDE
-Visual Studio 2017 15.8.2+ and .NET Core SDK v2.1.403+
+Visual Studio 2017 15.8.7+ and .NET Core SDK v2.1.403+
