@@ -45,5 +45,13 @@ public class XxxController : Controller
 }
 ```
 
+### Razor view
+```csharp
+@if (AgentResolver.IsMicroMessenger(Context))
+{
+    <strong>This browser is/as a Weixin.</strong>
+}
+```
+
 ### IDE
 Visual Studio 2017 15.8.2+ and .NET Core SDK v2.1.403+
