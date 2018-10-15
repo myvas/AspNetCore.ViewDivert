@@ -1,6 +1,6 @@
 # ViewDivert
+A Razor ViewLocationExpander to serve dedicated views for Weixin or what-you-need browsers.
 
-## How to Use
 ### Nuget
 [Myvas.AspNetCore.ViewDivert](https://www.nuget.org/packages/Myvas.AspNetCore.ViewDivert)
 
