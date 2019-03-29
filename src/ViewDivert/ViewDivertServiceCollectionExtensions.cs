@@ -16,7 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
 				services.Configure(optionsAction); //IOptions<ViewDivertOptions>
 			}
 
-			services.TryAddTransient<IDeviceResolver, AgentResolver>();
+			services.TryAddTransient<IDeviceResolver, DeviceResolver>();
 			services.TryAddTransient<DeviceViewLocationExpander>();
 
 			services.Configure<RazorViewEngineOptions>(options =>

@@ -15,4 +15,10 @@
     <ProjectReference Include="..\..\src\ViewDivert\ViewDivert.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Device\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>
