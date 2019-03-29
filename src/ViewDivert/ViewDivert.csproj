@@ -6,7 +6,7 @@
     <PackageId>Myvas.AspNetCore.ViewDivert</PackageId>
     <Authors>Myvas</Authors>
     <Description>A Razor ViewLocationExpander to serve dedicated views for Weixin or what-you-need browsers.</Description>
-    <PackageProjectUrl>https://github.com/myvas/ViewDivert</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/myvas/AspNetCore.ViewDivert</PackageProjectUrl>
     <Version>2.1.505</Version>
     <PackageTags>Myvas, AspNetCore, ViewDivert, ViewLocationExpander, AgentResolver</PackageTags>
     <RootNamespace>Myvas.AspNetCore.ViewDivert</RootNamespace>
