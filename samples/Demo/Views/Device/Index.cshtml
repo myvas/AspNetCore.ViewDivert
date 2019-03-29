@@ -1,8 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
+
+	var code = ViewData["DeviceCode"] as string;
+	if (string.IsNullOrWhiteSpace(code))
+	{
+		code = "[N/A]";
+	}
 }
 
-<h2>Device Code</h2>
-
-<p>@ViewData["DeviceCode"]</p>
-
+<h1>Device Code: <strong style="color:red;">@code</strong></h1>

@@ -10,48 +10,88 @@ services.AddViewDivert();
 ```
 
 ### Use ViewDivert attribute
+1.Put the attribute on Controller, so effect all actions in this Controller:
 ```csharp
-public class XxxController : Controller
+/// <summary>
+/// YES, ViewDivert on all actions!
+/// </summary>
+[ViewDivert]
+public class HomeController : Controller
 {
-    [ViewDivert]
-    public IActionResult Yyy()
-    {
-        return View();
-    }
-}
+	public IActionResult Index()
+      {
+          return View();
+      }
 
+	public IActionResult About()
+	{
+		return View();
+	}
+}
+```
+
+2.Put only on the specified action(s):
+```csharp
+public class Home2Controller : Controller
+{
+	/// <summary>
+	/// YES, ViewDivert on me!
+	/// </summary>
+	/// <returns></returns>
+	[ViewDivert]
+	public IActionResult Index()
+      {
+          return View();
+      }
+
+	/// <summary>
+	/// NO, ViewDivert NOT on me!
+	/// </summary>
+	/// <returns></returns>
+	public IActionResult About()
+	{
+		return View();
+	}
+}
+```
+
+```
 // Views/Xxx/Yyy.cshtml          (default)
-// Views/Xxx/Yyy.weixin.cshtml   (MicroMessenger, aka Weixin)
+// Views/Xxx/Yyy.weixin.cshtml   (MicroMessenger, via Weixin/Wechat browser)
+// Views/Xxx/Yyy.tablet.cshtml   (tablet, eg. iPad, iPad Pro and etc)
+// Views/Xxx/Yyy.mobile.cshtml   (mobile, via browser)
 // Views/Xxx/Yyy.custom.cshtml   (custom)
 ```
 
-### IAgentResolver
+### IDeviceResolver
 ```csharp
-public class XxxController : Controller
+public class DeviceController : Controller
 {
-    private readonly IAgentResolver _agentResolver;
+	private readonly IDeviceResolver _deviceResolver;
 
-    public XxxController(IAgentResolver agentResolver)
-    {
-        _agentResolver = agentResolver ?? throw new ArgumentNullException(nameof(agentResolver));_
-    }
+	public DeviceController(IDeviceResolver deviceResolver)
+	{
+		_deviceResolver = deviceResolver;
+	}
 
-    public IActionResult Yyy()
-    {
-        var deviceCode = _agentResovler.Resolve(context);
-        //...
-        return View();
-    }
+	public IActionResult Index()
+	{
+		var deviceCode = _deviceResolver.Resolve(HttpContext);
+
+		ViewData["DeviceCode"] = deviceCode;
+
+		return View();
+	}
 }
 ```
 
 ### Razor view
 ```csharp
-@if (AgentResolver.IsMicroMessenger(Context))
+@if (DeviceResolver.IsMicroMessenger(Context))
 {
     <strong>This browser is/as a Weixin.</strong>
 }
 ```
 
-### IDE
-Visual Studio 2017 15.8.7+ and .NET Core SDK v2.1.403+
+### Dev
+* .NET Core SDK 2.1.505

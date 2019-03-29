@@ -3,12 +3,20 @@ using System;
 
 namespace Demo.Controllers
 {
-    public class HomeController : Controller
-    {
-        [ViewDivert]
-        public IActionResult Index()
+	/// <summary>
+	/// YES, ViewDivert on all actions!
+	/// </summary>
+	[ViewDivert]
+	public class HomeController : Controller
+	{
+		public IActionResult Index()
         {
             return View();
         }
-    }
+
+		public IActionResult About()
+		{
+			return View();
+		}
+	}
 }

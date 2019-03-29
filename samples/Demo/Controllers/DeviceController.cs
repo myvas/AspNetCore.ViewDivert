@@ -8,6 +8,11 @@ namespace Demo.Controllers
 	{
 		private readonly IDeviceResolver _deviceResolver;
 
+		public DeviceController(IDeviceResolver deviceResolver)
+		{
+			_deviceResolver = deviceResolver;
+		}
+
 		public IActionResult Index()
 		{
 			var deviceCode = _deviceResolver.Resolve(HttpContext);
