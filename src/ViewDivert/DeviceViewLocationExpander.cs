@@ -62,8 +62,7 @@ namespace Myvas.AspNetCore.ViewDivert
 
 			if (ContainsViewDivertAttribute(context))
 			{
-				string value;
-				if (context.Values.TryGetValue(_options.Indicator, out value))
+				if (context.Values.TryGetValue(_options.Indicator, out string value))
 				{
 					if (!string.IsNullOrEmpty(value))
 					{
