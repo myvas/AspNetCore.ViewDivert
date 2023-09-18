@@ -1,4 +1,6 @@
 # ViewDivert
+![ViewDivert github actions status](https://github.com/myvas/AspNetCore.ViewDivert/actions/workflows/dotnet.yml/badge.svg)
+
 A Razor ViewLocationExpander to serve dedicated views for Weixin or what-you-need browsers.
 
 ### Nuget
