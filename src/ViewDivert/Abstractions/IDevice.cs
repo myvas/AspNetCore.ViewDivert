@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Myvas.AspNetCore.ViewDivert
+﻿namespace Myvas.AspNetCore.ViewDivert
 {
 
-    public interface IDevice
+	public interface IDevice
     {
         bool IsMobile { get; }
         bool IsTablet { get; }

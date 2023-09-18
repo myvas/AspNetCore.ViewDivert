@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1;netstandard2.0</TargetFrameworks>
+		<TargetFrameworks>net7.0;net6.0;netcoreapp3.1;netstandard2.1;netstandard2.0</TargetFrameworks>
 		<AssemblyName>Myvas.AspNetCore.ViewDivert</AssemblyName>
 		<PackageId>Myvas.AspNetCore.ViewDivert</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -17,22 +17,17 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
-		<PackageReference Include="Microsoft.Extensions.Options" Version="3.1.0" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
-		<PackageReference Include="Microsoft.Extensions.Options" Version="3.1.0" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
-		<PackageReference Include="Microsoft.Extensions.Options" Version="3.1.0" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App" Version="3.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="3.1.0" />
 	</ItemGroup>
 

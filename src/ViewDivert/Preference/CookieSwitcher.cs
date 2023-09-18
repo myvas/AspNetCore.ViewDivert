@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Myvas.AspNetCore.ViewDivert
 {
-    public class CookieSwitcher : IDeviceSwitcher
+	public class CookieSwitcher : IDeviceSwitcher
     {
         private const string DevicePreferenceCookieKey = ".MvcDeviceDetector.Preference";
         private const string MobilePreferenceKey = "Mobile";

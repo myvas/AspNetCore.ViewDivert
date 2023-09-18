@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Myvas.AspNetCore.ViewDivert
 {
-    public class SitePreferenceRepository : ISitePreferenceStore
+	public class SitePreferenceRepository : ISitePreferenceStore
     {
         private readonly IDeviceResolver _deviceResolver;
         private readonly IOptions<SwitcherOptions> _options;

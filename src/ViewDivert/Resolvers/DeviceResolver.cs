@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Http;
 using Myvas.AspNetCore.ViewDivert;
+using System;
+using System.Linq;
 
 namespace Microsoft.AspNetCore.Mvc
 {
-    public class DeviceResolver : IDeviceResolver
+	public class DeviceResolver : IDeviceResolver
     {
         private readonly ViewDivertOptions _options;
 

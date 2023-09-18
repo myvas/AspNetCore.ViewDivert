@@ -93,5 +93,6 @@ public class DeviceController : Controller
 }
 ```
 
-### Dev
-* .NET Core SDK 2.1.505
+# Dev
+* [Visual Studio 2022](https://visualstudio.microsoft.com)
+* [.NET 7.0, 6.0, 3.1](https://dotnet.microsoft.com/en-us/download/dotnet)
