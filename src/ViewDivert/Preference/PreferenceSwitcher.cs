@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Myvas.AspNetCore.ViewDivert
 {
-    public class PreferenceSwitcher
+	public class PreferenceSwitcher
     {
         private readonly IDeviceFactory _deviceFactory;
         private readonly IOptions<SwitcherOptions> _options;

@@ -1,12 +1,9 @@
 # ViewDivert
-![ViewDivert github actions status](https://github.com/myvas/AspNetCore.ViewDivert/actions/workflows/dotnet.yml/badge.svg)
+[![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/myvas/AspNetCore.ViewDivert?label=github)](https://github.com/myvas/AspNetCore.ViewDivert)
+[![ViewDivert github badge](https://github.com/myvas/AspNetCore.ViewDivert/actions/workflows/dotnet.yml/badge.svg)](https://github.com/myvas/AspNetCore.ViewDivert)
 [![NuGet](https://img.shields.io/nuget/v/Myvas.AspNetCore.ViewDivert.svg)](https://www.nuget.org/packages/Myvas.AspNetCore.ViewDivert)
-![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/myvas/AspNetCore.ViewDivert?label=github)
 
 A Razor ViewLocationExpander to serve dedicated views for Weixin or what-you-need browsers.
-
-### Nuget
-[Myvas.AspNetCore.ViewDivert](https://www.nuget.org/packages/Myvas.AspNetCore.ViewDivert)
 
 ### ConfigureServices()
 ```csharp
@@ -97,5 +94,6 @@ public class DeviceController : Controller
 }
 ```
 
-### Dev
-* .NET Core SDK 2.1.505
+# Dev
+* [Visual Studio 2022](https://visualstudio.microsoft.com)
+* [.NET 7.0, 6.0, 3.1](https://dotnet.microsoft.com/en-us/download/dotnet)

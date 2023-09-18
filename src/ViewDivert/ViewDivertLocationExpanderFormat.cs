@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Myvas.AspNetCore.ViewDivert
+﻿namespace Myvas.AspNetCore.ViewDivert
 {
-    /// <summary>
-    /// View扩展方式
-    /// </summary>
-    public enum ViewDivertLocationExpanderFormat
+	/// <summary>
+	/// View扩展方式
+	/// </summary>
+	public enum ViewDivertLocationExpanderFormat
     {
         /// <summary>
         /// 在文件名中加标识，例如./Index.wx.cshtml
