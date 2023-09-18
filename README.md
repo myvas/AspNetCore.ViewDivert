@@ -5,13 +5,14 @@
 
 A Razor ViewLocationExpander to serve dedicated views for Weixin or what-you-need browsers.
 
+## Usage
 ### ConfigureServices()
 ```csharp
 services.AddViewDivert();
 ```
 
 ### Use ViewDivert attribute
-1.Put the attribute on Controller, so effect all actions in this Controller:
+1. Put the attribute on Controller, so effect all actions in this Controller:
 ```csharp
 /// <summary>
 /// YES, ViewDivert on all actions!
@@ -31,7 +32,7 @@ public class HomeController : Controller
 }
 ```
 
-2.Put only on the specified action(s):
+2. Put only on the specified action(s):
 ```csharp
 public class Home2Controller : Controller
 {
@@ -94,6 +95,6 @@ public class DeviceController : Controller
 }
 ```
 
-# Dev
+## Dev
 * [Visual Studio 2022](https://visualstudio.microsoft.com)
 * [.NET 7.0, 6.0, 3.1](https://dotnet.microsoft.com/en-us/download/dotnet)
