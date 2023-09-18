@@ -15,7 +15,7 @@ namespace UnitTest
         [InlineData(9)]
         public void Odd_Pass(int value)
         {
-            Assert.Equal(true, IsOdd(value));
+            Assert.True(IsOdd(value));
         }
 
         [Theory]
@@ -25,7 +25,7 @@ namespace UnitTest
         [InlineData(-9)]
         public void NegetiveOdd_Pass(int value)
         {
-            Assert.Equal(true, !IsOdd(value));
+            Assert.False(IsOdd(value));
         }
 
         public bool IsOdd(int value)
