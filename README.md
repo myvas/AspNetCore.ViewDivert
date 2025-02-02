@@ -1,6 +1,7 @@
 # ViewDivert
 [![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/myvas/AspNetCore.ViewDivert?label=github)](https://github.com/myvas/AspNetCore.ViewDivert)
-[![ViewDivert github badge](https://github.com/myvas/AspNetCore.ViewDivert/actions/workflows/dotnet.yml/badge.svg)](https://github.com/myvas/AspNetCore.ViewDivert)
+[![test](https://github.com/myvas/AspNetCore.ViewDivert/actions/workflows/dotnet.yml/badge.svg)](https://github.com/myvas/AspNetCore.ViewDivert)
+[![deploy](https://github.com/myvas/AspNetCore.ViewDivert/actions/workflows/nuget.yml/badge.svg)](https://github.com/myvas/AspNetCore.ViewDivert)
 [![NuGet](https://img.shields.io/nuget/v/Myvas.AspNetCore.ViewDivert.svg)](https://www.nuget.org/packages/Myvas.AspNetCore.ViewDivert)
 
 A Razor ViewLocationExpander to serve dedicated views for Weixin or what-you-need browsers.
